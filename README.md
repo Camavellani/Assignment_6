@@ -2,4 +2,4 @@
 
 https://www.youtube.com/watch?v=HKTyOUx9Wf4
 
-This is a helpful video about the basics of the unittest framework in Python. The code that I used to follow along is uploaded as "unittest_practice.py" in this repository.
+This is a helpful video about the basics of the unittest framework in Python that is used for automated testing. The code that I used to follow along is uploaded as "unittest_practice.py" in this repository.
