@@ -1,4 +1,5 @@
 # Andrew worked on log in and search course methods for test user class
+# James worked on the search course by parameter method
 import sqlite3
 from user import user
 database = sqlite3.connect("data.db")
@@ -9,6 +10,18 @@ class test_user_class(user):
         cursor.execute("""SELECT * FROM COURSE""")
         test_value = 10
         return(test_value)
+    def test_sbp(self, crn, title, depart, time, days, semester, year, credits): 
+       cursor.execute("""INSERT INTO COURSE VALUES(?, ?, ?, ?, ?, ?, ?, ?);""", (crn, title, depart, time, days, semester, year, credits))
+       test_value = 0
+       cursor.execute("""SELECT * FROM COURSE WHERE (CRN = ? AND TITLE = ? AND DEPARTMENT = ? AND TIME = ? AND DAYS = ? AND SEMESTER = ? AND YEAR = ? AND CREDITS = ?)""" , (crn, title, depart, time, days, semester, year, credits))
+       query_result = cursor.fetchall()
+       if(len(query_result) == 0):
+           print("There was an error finding the course in the system.\n")
+       else:
+           print("Course successfully found.\n")
+           test_value = 10
+       cursor.execute("""DELETE FROM COURSE WHERE CRN = ?;""", (crn,))
+       return(test_value)      # Returns 10 if a course is successfully added, returns 0 if not
     def test_login(self, user_choice, first, last, id):
         # first = input("Enter your first name: \n")
         # last = input("Enter your last name: \n")

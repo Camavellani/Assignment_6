@@ -1,4 +1,5 @@
 # Andrew worked on unit test for log in and searching all courses
+# James worked on the unit test for search course by parameter
 import unittest
 from test_user_class import test_user_class
 
@@ -42,6 +43,20 @@ class UserTest(unittest.TestCase):
         
         # Act
         result = test_user_class.test_search_courses(test_user_class)
+        # Assert
+        self.assertEqual(result, 10)
+    def test_sbp(self):
+        # Arrange
+        self.crn = "6150"
+        self.title = "MATH202"
+        self.depart = "MATH"
+        self.time = "8:00-10:00"
+        self.days = "MWF"
+        self.semester = "Fall"
+        self.year = 2021
+        self.credits = 3
+        # Act
+        result = test_user_class.test_sbp(test_user_class, self.crn, self.title, self.depart, self.time, self.days, self.semester, self.year, self.credits)
         # Assert
         self.assertEqual(result, 10)
 if __name__ == "__main__":
