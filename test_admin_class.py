@@ -74,16 +74,16 @@ class test_admin_class(user):
       title = "Driver"
       office = "Heaven"
       email = "paulydubs@gmail.com"
-      cursor.execute("""INSERT INTO ADMIN VALUES(?, ?, ?, ?, ?, ?);""", (uid, fname, lname,title, office,email))
-      cursor.execute("""DELETE * FROM ADMIN WHERE ID = ?""", (id,))
-      cursor.execute("""SELECT * FROM ADMIN WHERE ID = ?""", (id,))
+      #cursor.execute("""INSERT INTO ADMIN VALUES(?, ?, ?, ?, ?, ?);""", (uid, fname, lname,title, office,email))
+      cursor.execute("""DELETE FROM ADMIN WHERE ID = ?""", (uid,))
+      cursor.execute("""SELECT * FROM ADMIN WHERE ID = ?""", (uid,))
       query_result = cursor.fetchall()
       if(len(query_result) != 0):
            print("There was an error removing the user to admin.\n")
       else:
            print("Admin successfully removed from system.\n")
            test_value = 10
-      cursor.execute("""DELETE * FROM ADMIN WHERE ID = ?""", (id,))
+      cursor.execute("""DELETE FROM ADMIN WHERE ID = ?""", (uid,))
 
       return(test_value)      # Returns 10 if a course is successfully added, returns 0 if not
 
@@ -114,8 +114,8 @@ class test_admin_class(user):
             grad = "2023"
             major = "BSCO"
             email = "wentzc@wit.edu"
-            cursor.execute("""INSERT INTO STUDENT VALUES(?, ?, ?, ?, ?, ?);""", (uid, fname, lname, grad,major,email))
-            cursor.execute("""DELETE * FROM STUDENT WHERE ID = ?""", (uid,))
+            #cursor.execute("""INSERT INTO STUDENT VALUES(?, ?, ?, ?, ?, ?);""", (uid, fname, lname, grad,major,email))
+            cursor.execute("""DELETE FROM STUDENT WHERE ID = ?""", (uid,))
             cursor.execute("""SELECT * FROM STUDENT WHERE ID = ?""", (uid,))
             query_result = cursor.fetchall()
             if(len(query_result) != 0):
@@ -125,8 +125,3 @@ class test_admin_class(user):
                 test_value = 10
             return(test_value)      # Returns 10 if a course is successfully added, returns 0 if not
     
-
-
-
-
-
