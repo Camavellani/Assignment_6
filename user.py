@@ -25,14 +25,20 @@ class user:
         sql_command = """SELECT * FROM COURSE"""
         return(sql_command)
     def search_by_parameters(self):
-        print("Enter a value or * to show all.")
-        crn = str(input("Enter an id:"))
-        title = str(input("Enter title:"))
-        depart = str(input("Enter department:"))
-        time = str(input("Enter what time of day the class is:"))
-        days = str(input("Enter what days the class is:"))
-        semester = str(input("Enter semester of class:"))
-        year = int(input("Enter year of class:"))
-        credits = int(input("Enter credits of class:"))
+        print("Enter a value to show course.")
+        crn = str(input("Enter an id: "))
+        title = str(input("Enter title: "))
+        depart = str(input("Enter department: "))
+        time = str(input("Enter what time of day the class is: "))
+        days = str(input("Enter what days the class is: "))
+        semester = str(input("Enter semester of class: "))
+        year = input("Enter year of class: ")
+        credits = input("Enter credits of class: ")
+        if year.isnumeric() and credits.isnumeric():
+            year = int(year)
+            credits = int(credits)
+        else:
+            year = 0
+            credits = 0
         return(crn, title, depart, time, days, semester, year, credits)
 cursor.close()
