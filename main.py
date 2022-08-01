@@ -6,7 +6,7 @@ from student import student
 from instructor import instructor
 from admin import admin
 
-database = sqlite3.connect("data.db")
+database = sqlite3.connect("new data.db")
 cursor = database.cursor()
 parameters = []
 course_list = []
