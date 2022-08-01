@@ -19,7 +19,8 @@ sql_command = """CREATE TABLE IF NOT EXISTS STUDENT (
     LAST TEXT NOT NULL,
     YEAR INT NOT NULL,
     MAJOR TEXT NOT NULL,
-    EMAIL TEXT NOT NULL);"""
+    EMAIL TEXT NOT NULL,
+    PASSWORD INT NOT NULL);"""
 cursor.execute(sql_command)
 sql_command = """CREATE TABLE IF NOT EXISTS INSTRUCTOR (
     ID TEXT PRIMARY KEY NOT NULL,
@@ -28,7 +29,8 @@ sql_command = """CREATE TABLE IF NOT EXISTS INSTRUCTOR (
     TITLE TEXT NOT NULL,
     HIRE_YEAR INT NOT NULL,
     DEPARTMENT TEXT NOT NULL,
-    EMAIL TEXT NOT NULL);"""
+    EMAIL TEXT NOT NULL,
+    PASSWORD INT NOT NULL);"""
 cursor.execute(sql_command)
 sql_command = """CREATE TABLE IF NOT EXISTS ADMIN (
     ID TEXT PRIMARY KEY NOT NULL,
@@ -36,7 +38,8 @@ sql_command = """CREATE TABLE IF NOT EXISTS ADMIN (
     LAST TEXT NOT NULL,
     TITLE TEXT NOT NULL,
     OFFICE TEXT NOT NULL,
-    EMAIL TEXT NOT NULL);"""
+    EMAIL TEXT NOT NULL,
+    PASSWORD INT NOT NULL);"""
 cursor.execute(sql_command)
 sql_command = """CREATE TABLE IF NOT EXISTS COURSE (
     CRN TEXT PRIMARY KEY NOT NULL,
@@ -48,13 +51,13 @@ sql_command = """CREATE TABLE IF NOT EXISTS COURSE (
     YEAR INT NOT NULL,
     CREDITS INT NOT NULL);"""
 cursor.execute(sql_command)
-sql_command = """INSERT INTO STUDENT VALUES('000000', 'Andrew', 'Lee', 2023, 'BSCO', 'leea');"""
+sql_command = """INSERT INTO STUDENT VALUES('000000', 'Andrew', 'Lee', 2023, 'BSCO', 'leea', 000000);"""
 #cursor.execute(sql_command)
 sql_command = """INSERT INTO COURSE VALUES('000000', 'Applied Programming Concepts', 'BSCO', '8:00AM-10:00AM', 'TR', 'Summer', 2022, 4);"""
 #cursor.execute(sql_command)
-sql_command = """INSERT INTO ADMIN VALUES('000000', 'George', 'Washington', 'President', 'Dobbs 140', 'washingtong');"""
+sql_command = """INSERT INTO ADMIN VALUES('000000', 'George', 'Washington', 'President', 'Dobbs 140', 'washingtong', 000000);"""
 #cursor.execute(sql_command)
-sql_command = """INSERT INTO INSTRUCTOR VALUES('1', 'John', 'Hancock', 'Prof', '2000', 'BSCO', 'hancockj');"""
+sql_command = """INSERT INTO INSTRUCTOR VALUES('1', 'John', 'Hancock', 'Prof', '2000', 'BSCO', 'hancockj', 000000);"""
 #cursor.execute(sql_command)
 
 user_choice = int(input(f'Choose a user type\n1. Student\n2. Instructor\n3. Admin\n'))
@@ -62,19 +65,19 @@ user_choice = int(input(f'Choose a user type\n1. Student\n2. Instructor\n3. Admi
 # UI - enter credentials
 first = input("Enter your first name: \n")
 last = input("Enter your last name: \n")
-id = input("Enter your ID number without the W: \n")
+password = input("Enter your password: \n")
 if(user_choice == 1):
     # Verify student credentials
-    cursor.execute("""SELECT ID FROM STUDENT WHERE ID = ?""", (id,))
+    cursor.execute("""SELECT ID FROM STUDENT WHERE PASSWORD = ?""", (password,))
     query_result1 = cursor.fetchall()
     cursor.execute("""SELECT FIRST FROM STUDENT WHERE FIRST = ?""", (first,))
     query_result2 = cursor.fetchall()
     cursor.execute("""SELECT LAST FROM STUDENT WHERE LAST = ?""", (last,))
     query_result3 = cursor.fetchall()
     if(len(query_result1) == 0):
-        result_id = "er404"
+        result_password = "er404"
     else:
-        result_id = id
+        result_password = password
     if(len(query_result2) == 0):
         result_first = "er404"
     else:
@@ -86,16 +89,16 @@ if(user_choice == 1):
     
 elif(user_choice == 2):
     # Verify instructor credentials
-    cursor.execute("""SELECT ID FROM INSTRUCTOR WHERE ID = ?""", (id,))
+    cursor.execute("""SELECT ID FROM INSTRUCTOR WHERE PASSWORD = ?""", (password,))
     query_result1 = cursor.fetchall()
     cursor.execute("""SELECT FIRST FROM INSTRUCTOR WHERE FIRST = ?""", (first,))
     query_result2 = cursor.fetchall()
     cursor.execute("""SELECT LAST FROM INSTRUCTOR WHERE LAST = ?""", (last,))
     query_result3 = cursor.fetchall()
     if(len(query_result1) == 0):
-        result_id = "er404"
+        result_password = "er404"
     else:
-        result_id = id
+        result_password = password
     if(len(query_result2) == 0):
         result_first = "er404"
     else:
@@ -107,16 +110,16 @@ elif(user_choice == 2):
     
 elif(user_choice == 3):
     # Verify admin credentials
-    cursor.execute("""SELECT ID FROM ADMIN WHERE ID = ?""", (id,))
+    cursor.execute("""SELECT ID FROM ADMIN WHERE PASSWORD = ?""", (password,))
     query_result1 = cursor.fetchall()
     cursor.execute("""SELECT FIRST FROM ADMIN WHERE FIRST = ?""", (first,))
     query_result2 = cursor.fetchall()
     cursor.execute("""SELECT LAST FROM ADMIN WHERE LAST = ?""", (last,))
     query_result3 = cursor.fetchall()
     if(len(query_result1) == 0):
-        result_id = "er404"
+        result_password = "er404"
     else:
-        result_id = id
+        result_password = password
     if(len(query_result2) == 0):
         result_first = "er404"
     else:
@@ -130,14 +133,14 @@ else:
     print("That was not a valid input. Please try again.\n")
     result_first = "er404"
     result_last = "er404"
-    result_id = "er404"
+    result_password = "er404"
 
 # Successful Log In
-if(id == result_id) and (first == result_first) and (last == result_last):
+if(id == result_password) and (first == result_first) and (last == result_last):
     while user_choice != 0:
     # Student
         if(user_choice == 1):
-            student_user = student(first, last, id)
+            student_user = student(first, last, password)
             print("Welcome, " + student_user.show_first() + " " + student_user.show_last() + "!")
             action_choice = int(input("Choose an option:\n1. Search courses\n2. Add courses\n3. Remove courses\n4. Print schedule\n5. Search course by parameter\n0. Exit\n"))
             if(action_choice == 1):
@@ -163,7 +166,7 @@ if(id == result_id) and (first == result_first) and (last == result_last):
         
     # Instructor
         elif(user_choice == 2):
-            instructor_user = instructor(first, last, id)
+            instructor_user = instructor(first, last, password)
             print("Welcome, " + instructor_user.show_first() + " " + instructor_user.show_last() + "!")
             action_choice = int(input("Choose an option:\n1. Assemble roster\n2. Print roster\n3. Search courses\n4. Search courses by parameter\n0. Exit\n"))
             if(action_choice == 1):
@@ -187,7 +190,7 @@ if(id == result_id) and (first == result_first) and (last == result_last):
 
     # Admin
         elif(user_choice == 3):
-            admin_user = admin(first, last, id)
+            admin_user = admin(first, last, password)
             print("Welcome, " + admin_user.show_first() + " " + admin_user.show_last() + "!")
             action_choice = int(input("Choose an option:\n1. Add course\n2. Remove course\n3. Add user\n4. Remove user\n5. Add student\n6. Remove student\n7. Add instructor\n8. Remove instructor\n9. Search courses\n10. Search courses by parameter\n0. Exit\n"))
             if(action_choice == 1):
