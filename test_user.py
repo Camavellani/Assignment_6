@@ -10,9 +10,9 @@ class UserTest(unittest.TestCase):
         self.user_choice = 1
         self.first = "Andrew"
         self.last = "Lee"
-        self.ID = "000000"
+        self.password = "000000"
         # Act
-        result = test_user_class.test_login(test_user_class, self.user_choice, self.first, self.last, self.ID)
+        result = test_user_class.test_login(test_user_class, self.user_choice, self.first, self.last, self.password)
         # Assert
         self.assertEqual(result, 10)
     def test_login_instructor(self):
@@ -21,9 +21,9 @@ class UserTest(unittest.TestCase):
         self.user_choice = 2
         self.first = "Daniel"
         self.last = "Bernoulli"
-        self.ID = "1"
+        self.password = "000000"
         # Act
-        result = test_user_class.test_login(test_user_class, self.user_choice, self.first, self.last, self.ID)
+        result = test_user_class.test_login(test_user_class, self.user_choice, self.first, self.last, self.password)
         # Assert
         self.assertEqual(result, 10)
     def test_login_admin(self):
@@ -32,9 +32,9 @@ class UserTest(unittest.TestCase):
         self.user_choice = 3
         self.first = "John"
         self.last = "Johnson"
-        self.ID = "1"
+        self.password = "000000"
         # Act
-        result = test_user_class.test_login(test_user_class, self.user_choice, self.first, self.last, self.ID)
+        result = test_user_class.test_login(test_user_class, self.user_choice, self.first, self.last, self.password)
         # Assert
         self.assertEqual(result, 10)
     def test_search_courses(self):
